@@ -9,6 +9,7 @@ package edu.westga.retirement.model;
 public final class SavingsYear {
     private final int beginBalance;
     private final int contribution;
+    private double appreciationRate;
     private final int appreciation;
     private final int endBalance;
 
@@ -21,6 +22,7 @@ public final class SavingsYear {
     public SavingsYear(int beginBalance, int contribution, double appreciationRate) {
         this.beginBalance = beginBalance;
         this.contribution = contribution;
+        this.appreciationRate = appreciationRate;
         this.appreciation = (int) (this.beginBalance * appreciationRate);
         this.endBalance = this.beginBalance + this.contribution + this.appreciation;
     }
@@ -55,6 +57,14 @@ public final class SavingsYear {
      */
     public int getEndBalance() {
         return this.endBalance;
+    }
+
+    /**
+     * Get the next SavingsYear data based on this year's data
+     * @return The next SavingYear starting with this year's end balance
+     */
+    public SavingsYear getNextYear() {
+        return new SavingsYear(this.endBalance, this.contribution, this.appreciationRate);
     }
 
 }
