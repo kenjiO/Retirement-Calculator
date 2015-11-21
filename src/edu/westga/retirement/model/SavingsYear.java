@@ -7,6 +7,7 @@ package edu.westga.retirement.model;
  *
  */
 public final class SavingsYear {
+    private final int age;
     private final int beginBalance;
     private final int contribution;
     private double appreciationRate;
@@ -15,11 +16,16 @@ public final class SavingsYear {
 
     /**
      * Create a new year of savings
+     * @param age Age at the beginning of the year
      * @param beginBalance The savings balance at the start of the year
      * @param contribution The contribution amount for the year
      * @param appreciationRate The investment appreciation rate
      */
-    public SavingsYear(int beginBalance, int contribution, double appreciationRate) {
+    public SavingsYear(int age, int beginBalance, int contribution, double appreciationRate) {
+        if (age < 1) {
+            throw new IllegalArgumentException("Age cannot be less than 1");
+        }
+        this.age = age;
         this.beginBalance = beginBalance;
         this.contribution = contribution;
         this.appreciationRate = appreciationRate;
@@ -58,13 +64,21 @@ public final class SavingsYear {
     public int getEndBalance() {
         return this.endBalance;
     }
+    
+    /**
+     * Get the age at this year
+     * @return The age when the year starts
+     */
+    public int getAge() {
+    	return this.age;
+    }
 
     /**
      * Get the next SavingsYear data based on this year's data
      * @return The next SavingYear starting with this year's end balance
      */
     public SavingsYear getNextYear() {
-        return new SavingsYear(this.endBalance, this.contribution, this.appreciationRate);
+        return new SavingsYear(this.age + 1, this.endBalance, this.contribution, this.appreciationRate);
     }
 
 }

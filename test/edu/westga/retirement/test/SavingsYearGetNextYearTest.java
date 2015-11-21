@@ -19,7 +19,7 @@ public class SavingsYearGetNextYearTest {
      */
     @Test
     public void testGetNextYearHasBeginBalanceEqualToCurrentEndBalance() {
-        SavingsYear previousYear = new SavingsYear(5000, 2000, .06);
+        SavingsYear previousYear = new SavingsYear(40, 5000, 2000, .06);
         SavingsYear testYear = previousYear.getNextYear();
         assertEquals(previousYear.getEndBalance(), testYear.getBeginBalance());
     }
@@ -29,7 +29,7 @@ public class SavingsYearGetNextYearTest {
      */
     @Test
     public void testGetNextYearUsesSameAppreciationRate() {
-        SavingsYear previousYear = new SavingsYear(1000, 0, .1);
+        SavingsYear previousYear = new SavingsYear(40, 1000, 0, .1);
         SavingsYear testYear = previousYear.getNextYear();
         assertEquals(110, testYear.getAppreciation());
     }
@@ -39,7 +39,7 @@ public class SavingsYearGetNextYearTest {
      */
     @Test
     public void testGetNextYearUsesSameContribution() {
-        SavingsYear previousYear = new SavingsYear(1000, 97, 0);
+        SavingsYear previousYear = new SavingsYear(40, 1000, 97, 0);
         SavingsYear testYear = previousYear.getNextYear();
         assertEquals(97, testYear.getContribution());
     }
@@ -49,7 +49,7 @@ public class SavingsYearGetNextYearTest {
      */
     @Test
     public void testGetNextYearUsesSameContributionInCalculations() {
-        SavingsYear previousYear = new SavingsYear(1000, 100, 0);
+        SavingsYear previousYear = new SavingsYear(40, 1000, 100, 0);
         SavingsYear testYear = previousYear.getNextYear();
         assertEquals(1200, testYear.getEndBalance());
     }
@@ -59,10 +59,19 @@ public class SavingsYearGetNextYearTest {
      */
     @Test
     public void testGetNextYearUsesSameAppreciationRateAndContribution() {
-        SavingsYear previousYear = new SavingsYear(1839, 237, .07);
+        SavingsYear previousYear = new SavingsYear(40, 1839, 237, .07);
         SavingsYear testYear = previousYear.getNextYear();
         assertEquals(2595, testYear.getEndBalance());
     }
-
+    
+    /**
+     * Test getNextYear will return a year with age incremented
+     */
+    @Test
+    public void testGetNextYearReturnsNextYearWithAgeIncremented() {
+        SavingsYear previousYear = new SavingsYear(40, 1839, 237, .07);
+        SavingsYear testYear = previousYear.getNextYear();
+        assertEquals(41, testYear.getAge());    
+    }
 
 }
