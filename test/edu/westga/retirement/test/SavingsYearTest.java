@@ -2,6 +2,8 @@ package edu.westga.retirement.test;
 
 import static org.junit.Assert.*;
 
+import java.util.Map;
+
 import org.junit.Test;
 
 import edu.westga.retirement.model.SavingsYear;
@@ -99,8 +101,68 @@ public class SavingsYearTest {
         assertEquals(5300, testYear.getEndBalance());
     }
 
+    /**
+     * Test getValuesMap can get the age from the SavingsYear
+     */
+    @Test
+    public void testGetValuesMapGetsAgeFromTheSavingsYear() {
+        SavingsYear testYear = new SavingsYear(43, 95724, 398, 7.5);
+        Map<String, Integer> map = testYear.getMappedValues();
+        assertEquals(43, map.get("age").intValue());
+    }
 
-
-
+    /**
+     * Test getValuesMap can get the beginBalance from the SavingsYear
+     */
+    @Test
+    public void testGetValuesMapGetsBeginBalanceFromTheSavingsYear() {
+        SavingsYear testYear = new SavingsYear(43, 95724, 398, 7.5);
+        Map<String, Integer> map = testYear.getMappedValues();
+        assertEquals(95724, map.get("beginBalance").intValue());
+    }
+    
+    /**
+     * Test getValuesMap can get the contribution from the SavingsYear
+     */
+    @Test
+    public void testGetValuesMapGetsContributionFromTheSavingsYear() {
+        SavingsYear testYear = new SavingsYear(43, 95724, 398, 7.5);
+        Map<String, Integer> map = testYear.getMappedValues();
+        assertEquals(398, map.get("contribution").intValue());
+    }
+    
+    /**
+     * Test getValuesMap can get the appreciation from the SavingsYear
+     */
+    @Test
+    public void testGetValuesMapGetsAppreciationFromTheSavingsYear() {
+        SavingsYear testYear = new SavingsYear(43, 95724, 398, 7.5);
+        Map<String, Integer> map = testYear.getMappedValues();
+        assertEquals(testYear.getAppreciation(), map.get("appreciation").intValue());
+    }
+    
+    /**
+     * Test getValuesMap can get the endBalance from the SavingsYear
+     */
+    @Test
+    public void testGetValuesMapGetsEndBalanceFromTheSavingsYear() {
+        SavingsYear testYear = new SavingsYear(43, 95724, 398, 7.5);
+        Map<String, Integer> map = testYear.getMappedValues();
+        assertEquals(testYear.getEndBalance(), map.get("endBalance").intValue());
+    }
+    
+    /**
+     * Test getValuesMap returns an unmodifiable map
+     */
+    @Test
+    public void testGetValuesMapReturnsUnmodifiableMap() {
+        SavingsYear testYear = new SavingsYear(43, 95724, 398, 7.5);
+        Map<String, Integer> map = testYear.getMappedValues();
+        try {
+        	map.put("age", 55);
+        	fail("UnspportedOperationException not thrown");
+        } catch (UnsupportedOperationException exception) {
+        }
+    }
 
 }

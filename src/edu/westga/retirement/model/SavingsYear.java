@@ -1,5 +1,9 @@
 package edu.westga.retirement.model;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Model the activity of one year of retirement savings
  * @author Kenji Okamoto
@@ -71,6 +75,22 @@ public final class SavingsYear {
      */
     public int getAge() {
     	return this.age;
+    }
+    
+    /**
+     * Get a map with the values for age, beginBalance, contribution, appreciation
+     * and end balance.
+     * @return An unmodifiable map with keys age, beginBalance, contribution,
+     *         appreciation, endBalance
+     */
+    public Map<String, Integer> getMappedValues() {
+    	Map<String, Integer> map = new HashMap<String, Integer>();
+    	map.put("age", this.age);
+    	map.put("beginBalance", this.beginBalance);
+    	map.put("contribution", this.contribution);
+    	map.put("appreciation", this.appreciation);
+    	map.put("endBalance", this.endBalance);
+    	return Collections.unmodifiableMap(map);
     }
 
     /**
