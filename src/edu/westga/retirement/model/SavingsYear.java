@@ -85,4 +85,31 @@ public final class SavingsYear {
         return new SavingsYear(this.age + 1, this.endBalance, this.contribution, this.appreciationRate);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + this.age;
+        result = prime * result + this.appreciation;
+        long temp;
+        temp = Double.doubleToLongBits(this.appreciationRate);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + this.beginBalance;
+        result = prime * result + this.contribution;
+        result = prime * result + this.endBalance;
+        return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        return (this.hashCode() == obj.hashCode());
+    }
+
+
 }
