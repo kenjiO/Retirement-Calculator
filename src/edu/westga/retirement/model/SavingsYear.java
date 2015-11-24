@@ -1,9 +1,5 @@
 package edu.westga.retirement.model;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Model the activity of one year of retirement savings
  * @author Kenji Okamoto
