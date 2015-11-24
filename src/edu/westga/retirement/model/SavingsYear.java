@@ -74,23 +74,7 @@ public final class SavingsYear {
      * @return The age when the year starts
      */
     public int getAge() {
-    	return this.age;
-    }
-    
-    /**
-     * Get a map with the values for age, beginBalance, contribution, appreciation
-     * and end balance.
-     * @return An unmodifiable map with keys age, beginBalance, contribution,
-     *         appreciation, endBalance
-     */
-    public Map<String, Integer> getMappedValues() {
-    	Map<String, Integer> map = new HashMap<String, Integer>();
-    	map.put("age", this.age);
-    	map.put("beginBalance", this.beginBalance);
-    	map.put("contribution", this.contribution);
-    	map.put("appreciation", this.appreciation);
-    	map.put("endBalance", this.endBalance);
-    	return Collections.unmodifiableMap(map);
+        return this.age;
     }
 
     /**

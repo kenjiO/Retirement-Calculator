@@ -1,9 +1,7 @@
 package edu.westga.retirement.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Class to model a possible retirement scenario
@@ -40,15 +38,11 @@ public final class RetirementScenario {
     }
 
     /**
-     * Get a list of data for all the savings years.
-     * @return An immutable list of savings years data as unmodifiable maps
+     * Get a list of the SavingsYears objects in this scenario
+     * @return A list of the SavingsYears object for each saving year in the scenario
      */
-    public List<Map<String, Integer>> getSavingsYearData() {
-        ArrayList<Map<String, Integer>> data = new ArrayList<Map<String, Integer>>();
-        for (SavingsYear year : this.savingsYearlyData) {
-            data.add(year.getMappedValues());
-        }
-        return  Collections.unmodifiableList(data);
+    public List<SavingsYear> getSavingsYears() {
+        return new ArrayList<SavingsYear>(this.savingsYearlyData);
     }
 
 }
