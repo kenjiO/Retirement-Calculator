@@ -1,5 +1,6 @@
 package edu.westga.retirement.view;
 
+import edu.westga.retirement.model.RetirementYear;
 import edu.westga.retirement.model.SavingsYear;
 import edu.westga.retirement.viewmodel.RetirementViewModel;
 import javafx.event.ActionEvent;
@@ -29,6 +30,12 @@ public class RetirementView {
     @FXML
     private Spinner<Double> returnRate;
     @FXML
+    private Spinner<Integer> socialSecurity;
+    @FXML
+    private Spinner<Integer> retirementSpending;
+    @FXML
+    private Pane resultsPane;
+    @FXML
     private TableView<SavingsYear> savingsYearsTable;
     @FXML
     private TableColumn<SavingsYear, Integer> ageColumn;
@@ -40,6 +47,21 @@ public class RetirementView {
     private TableColumn<SavingsYear, Integer> appreciationColumn;
     @FXML
     private TableColumn<SavingsYear, Integer> endBalanceColumn;
+
+    @FXML
+    private TableView<RetirementYear> retirementYearsTable;
+    @FXML
+    private TableColumn<RetirementYear, Integer> retireAgeColumn;
+    @FXML
+    private TableColumn<RetirementYear, Integer> retireBeginBalanceColumn;
+    @FXML
+    private TableColumn<RetirementYear, Integer> retireSpendingColumn;
+    @FXML
+    private TableColumn<RetirementYear, Integer> socialSecurityColumn;
+    @FXML
+    private TableColumn<RetirementYear, Integer> retireAppreciationColumn;
+    @FXML
+    private TableColumn<RetirementYear, Integer> retireEndBalanceColumn;
     @FXML
     private Pane helpPane;
 
@@ -48,6 +70,7 @@ public class RetirementView {
     @FXML
     void initialize() {
         this.initializeSavingsTable();
+        this.initializeRetirementTable();
     }
 
     /**
@@ -59,8 +82,9 @@ public class RetirementView {
         this.setViewModelValues();
         this.viewModel.runScenario();
         this.savingsYearsTable.setItems(this.viewModel.getSavingsYearsList());
+        this.retirementYearsTable.setItems(this.viewModel.getRetirementYearsList());
         this.helpPane.setVisible(false);
-        this.savingsYearsTable.visibleProperty().setValue(true);
+        this.resultsPane.setVisible(true);
     }
 
     private void setViewModelValues() {
@@ -69,11 +93,11 @@ public class RetirementView {
         this.viewModel.startBalanceProperty().setValue(this.savings.getValue());
         this.viewModel.annualContributionProperty().setValue(this.contribution.getValue());
         this.viewModel.returnRateProperty().setValue(this.returnRate.getValue() / 100);
+        this.viewModel.socialSecurityProperty().setValue(this.socialSecurity.getValue());
+        this.viewModel.retirementSpendingProperty().setValue(this.retirementSpending.getValue());
     }
 
     private void initializeSavingsTable() {
-        this.savingsYearsTable.visibleProperty().setValue(false);
-
         this.ageColumn.setCellValueFactory(
                 new PropertyValueFactory<SavingsYear, Integer>("age")
         );
@@ -89,8 +113,27 @@ public class RetirementView {
         this.endBalanceColumn.setCellValueFactory(
                 new PropertyValueFactory<SavingsYear, Integer>("endBalance")
         );
-
     }
 
+    private void initializeRetirementTable() {
+        this.retireAgeColumn.setCellValueFactory(
+                new PropertyValueFactory<RetirementYear, Integer>("age")
+        );
+        this.retireBeginBalanceColumn.setCellValueFactory(
+                new PropertyValueFactory<RetirementYear, Integer>("beginBalance")
+        );
+        this.retireSpendingColumn.setCellValueFactory(
+                new PropertyValueFactory<RetirementYear, Integer>("withdrawal")
+        );
+        this.socialSecurityColumn.setCellValueFactory(
+                new PropertyValueFactory<RetirementYear, Integer>("socialSecurity")
+        );
+        this.retireAppreciationColumn.setCellValueFactory(
+                new PropertyValueFactory<RetirementYear, Integer>("appreciation")
+        );
+        this.retireEndBalanceColumn.setCellValueFactory(
+                new PropertyValueFactory<RetirementYear, Integer>("endBalance")
+        );
+    }
 }
 
