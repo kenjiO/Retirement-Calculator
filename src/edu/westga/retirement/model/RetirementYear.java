@@ -141,29 +141,8 @@ public final class RetirementYear {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        RetirementYear other = (RetirementYear) obj;
-        if (this.age != other.age) {
-            return false;
-        }
-        if (this.appreciation != other.appreciation) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.appreciationRate) != Double.doubleToLongBits(other.appreciationRate)) {
-            return false;
-        }
-        if (this.beginBalance != other.beginBalance) {
-            return false;
-        }
-        if (this.endBalance != other.endBalance) {
-            return false;
-        }
-        if (this.socialSecurityIncome != other.socialSecurityIncome) {
-            return false;
-        }
-        if (this.withdrawal != other.withdrawal) {
-            return false;
-        }
-        return true;
+        return (this.hashCode() == obj.hashCode());
+
     }
 
 
