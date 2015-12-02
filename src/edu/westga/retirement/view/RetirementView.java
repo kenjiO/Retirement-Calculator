@@ -5,6 +5,7 @@ import edu.westga.retirement.model.SavingsYear;
 import edu.westga.retirement.viewmodel.RetirementViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -33,6 +34,8 @@ public class RetirementView {
     private Spinner<Integer> socialSecurity;
     @FXML
     private Spinner<Integer> retirementSpending;
+    @FXML
+    private Label resultMessage;
     @FXML
     private Pane resultsPane;
     @FXML
@@ -69,6 +72,7 @@ public class RetirementView {
 
     @FXML
     void initialize() {
+        this.resultMessage.textProperty().bind(this.viewModel.getResultMessageProperty());
         this.initializeSavingsTable();
         this.initializeRetirementTable();
     }
@@ -85,6 +89,7 @@ public class RetirementView {
         this.retirementYearsTable.setItems(this.viewModel.getRetirementYearsList());
         this.helpPane.setVisible(false);
         this.resultsPane.setVisible(true);
+        this.resultMessage.setVisible(true);
     }
 
     private void setViewModelValues() {

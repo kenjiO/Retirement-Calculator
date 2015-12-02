@@ -9,6 +9,8 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.ReadOnlyListWrapper;
+import javafx.beans.property.ReadOnlyStringProperty;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -31,6 +33,7 @@ public class RetirementViewModel {
 
     private final ReadOnlyListWrapper<SavingsYear> savingsYearsList = new ReadOnlyListWrapper<SavingsYear>();
     private final ReadOnlyListWrapper<RetirementYear> retirementYearsList = new ReadOnlyListWrapper<RetirementYear>();
+    private final ReadOnlyStringWrapper resultMessage = new ReadOnlyStringWrapper();
     private RetirementScenario scenario;
 
     /**
@@ -98,6 +101,14 @@ public class RetirementViewModel {
     }
 
     /**
+     * Get the resultMessage property.
+     * @return the resultMessage property
+     */
+    public ReadOnlyStringProperty getResultMessageProperty() {
+        return this.resultMessage.getReadOnlyProperty();
+    }
+
+    /**
      * Get a list of the SavingsYears for the scenario
      * @return A list of the SavingsYears objects for the scenario
     */
@@ -131,6 +142,18 @@ public class RetirementViewModel {
         this.savingsYearsList.set(FXCollections.observableArrayList(savingYearsData));
         List<RetirementYear> retirementYearsData = this.scenario.getRetirementYears();
         this.retirementYearsList.set(FXCollections.observableArrayList(retirementYearsData));
+        this.setResultMessage();
+    }
+
+    private void setResultMessage() {
+        int age = this.scenario.getAgeRetirementLastsTo();
+        String message;
+        if (age == -1) {
+            message = "Congragulations. You will still have savings at age " + RetirementScenario.SCENARIO_STOP_AGE;
+        } else {
+            message = "You will have enough retirement savings to last to age " + age;
+        }
+        this.resultMessage.set(message);
     }
 
 }
