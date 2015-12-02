@@ -3,6 +3,7 @@ package edu.westga.retirement.viewmodel;
 import java.util.List;
 
 import edu.westga.retirement.model.RetirementScenario;
+import edu.westga.retirement.model.RetirementYear;
 import edu.westga.retirement.model.SavingsYear;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -25,8 +26,11 @@ public class RetirementViewModel {
     private final IntegerProperty initialBalance = new SimpleIntegerProperty();
     private final IntegerProperty annualContribution = new SimpleIntegerProperty();
     private final DoubleProperty appreciationRate = new SimpleDoubleProperty();
+    private final IntegerProperty socialSecurity = new SimpleIntegerProperty();
+    private final IntegerProperty retirementSpending = new SimpleIntegerProperty();
 
     private final ReadOnlyListWrapper<SavingsYear> savingsYearsList = new ReadOnlyListWrapper<SavingsYear>();
+    private final ReadOnlyListWrapper<RetirementYear> retirementYearsList = new ReadOnlyListWrapper<RetirementYear>();
     private RetirementScenario scenario;
 
     /**
@@ -34,6 +38,7 @@ public class RetirementViewModel {
      */
     public RetirementViewModel() {
         this.savingsYearsList.set(FXCollections.observableArrayList());
+        this.retirementYearsList.set(FXCollections.observableArrayList());
     }
 
     /**
@@ -77,11 +82,35 @@ public class RetirementViewModel {
     }
 
     /**
+     * Get the socialSecurity property. This is the expected annual social security income
+     * @return the socialSecurity property
+     */
+    public IntegerProperty socialSecurityProperty() {
+        return this.socialSecurity;
+    }
+
+    /**
+     * Get the retirementSpending property. This the planned annual spending in retirement
+     * @return the retirementSpending property
+     */
+    public IntegerProperty retirementSpendingProperty() {
+        return this.retirementSpending;
+    }
+
+    /**
      * Get a list of the SavingsYears for the scenario
      * @return A list of the SavingsYears objects for the scenario
     */
     public ReadOnlyListProperty<SavingsYear> getSavingsYearsList() {
         return this.savingsYearsList.getReadOnlyProperty();
+    }
+
+    /**
+     * Get a list of the RetirementYears for the scenario
+     * @return A list of the RetirementYears objects for the scenario
+    */
+    public ReadOnlyListProperty<RetirementYear> getRetirementYearsList() {
+        return this.retirementYearsList.getReadOnlyProperty();
     }
 
    /**
@@ -93,11 +122,15 @@ public class RetirementViewModel {
         int initialBalance = this.initialBalance.intValue();
         int contribution = this.annualContribution.intValue();
         double appreciationRate = this.appreciationRate.doubleValue();
-
-        this.scenario = new RetirementScenario(age, retireAge, initialBalance, contribution, appreciationRate);
+        int socialSecurity = this.socialSecurity.intValue();
+        int retirementSpending = this.retirementSpending.intValue();
+        this.scenario = new RetirementScenario(age, retireAge, initialBalance, contribution,
+                appreciationRate, socialSecurity, retirementSpending);
 
         List<SavingsYear> savingYearsData = this.scenario.getSavingsYears();
         this.savingsYearsList.set(FXCollections.observableArrayList(savingYearsData));
+        List<RetirementYear> retirementYearsData = this.scenario.getRetirementYears();
+        this.retirementYearsList.set(FXCollections.observableArrayList(retirementYearsData));
     }
 
 }
