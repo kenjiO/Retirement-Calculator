@@ -23,7 +23,7 @@ public class RetirementScenarioWhenGetSavingsYearsTest {
      */
     @Test
     public void testgetSavingsYearsReturnsEmptyListWhenAlreadyRetired() {
-        RetirementScenario testScenario = new RetirementScenario(65, 65, 10000, 500, .06);
+        RetirementScenario testScenario = new RetirementScenario(65, 65, 10000, 500, .06, 12000, 50000);
         List<SavingsYear> result = testScenario.getSavingsYears();
         assertEquals(0, result.size());
     }
@@ -33,7 +33,7 @@ public class RetirementScenarioWhenGetSavingsYearsTest {
      */
     @Test
     public void testgetSavingsYearsWhen1YearBeforeRetirementReturns1Year() {
-        RetirementScenario testScenario = new RetirementScenario(64, 65, 10000, 500, .06);
+        RetirementScenario testScenario = new RetirementScenario(64, 65, 10000, 500, .06, 12000, 50000);
         List<SavingsYear> result = testScenario.getSavingsYears();
         assertEquals(1, result.size());
     }
@@ -43,7 +43,7 @@ public class RetirementScenarioWhenGetSavingsYearsTest {
      */
     @Test
     public void testgetSavingsYearsWhenOneYearBeforeRetirementHasAccurateData() {
-        RetirementScenario testScenario = new RetirementScenario(64, 65, 10000, 297, .06);
+        RetirementScenario testScenario = new RetirementScenario(64, 65, 10000, 297, .06, 12000, 50000);
         SavingsYear year = testScenario.getSavingsYears().get(0);
         int expectedAppreciation = (int) (10000 * .06);
         int expectedEndBalance = 10000 + 297 + expectedAppreciation;
@@ -59,7 +59,7 @@ public class RetirementScenarioWhenGetSavingsYearsTest {
      */
     @Test
     public void testgetSavingsYearsWhen3YearBeforeRetirementReturns3Years() {
-        RetirementScenario testScenario = new RetirementScenario(62, 65, 10000, 500, .06);
+        RetirementScenario testScenario = new RetirementScenario(62, 65, 10000, 500, .06, 12000, 50000);
         List<SavingsYear> result = testScenario.getSavingsYears();
         assertEquals(3, result.size());
     }
@@ -69,7 +69,7 @@ public class RetirementScenarioWhenGetSavingsYearsTest {
      */
     @Test
     public void testgetSavingsYearsGetsAccurateDataFor3rdYear() {
-        RetirementScenario testScenario = new RetirementScenario(62, 65, 10000, 297, .06);
+        RetirementScenario testScenario = new RetirementScenario(62, 65, 10000, 297, .06, 12000, 50000);
         SavingsYear firstYear = new SavingsYear(62, 10000, 297, .06);
         SavingsYear expected = firstYear.getNextYear().getNextYear();
         SavingsYear actual = testScenario.getSavingsYears().get(2);
@@ -85,7 +85,7 @@ public class RetirementScenarioWhenGetSavingsYearsTest {
      */
     @Test
     public void testgetSavingsYearsReturnsListThatCannotModifyTheOriginal() {
-        RetirementScenario testScenario = new RetirementScenario(62, 65, 10000, 500, .06);
+        RetirementScenario testScenario = new RetirementScenario(62, 65, 10000, 500, .06, 12000, 50000);
         assertEquals(true, testScenario.getSavingsYears().size() > 0);
         testScenario.getSavingsYears().clear();
         assertEquals(true, testScenario.getSavingsYears().size() > 0);

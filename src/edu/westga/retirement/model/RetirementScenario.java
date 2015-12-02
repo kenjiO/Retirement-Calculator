@@ -11,6 +11,7 @@ import java.util.List;
  */
 public final class RetirementScenario {
     private final List<SavingsYear> savingsYearlyData;
+    private final List<RetirementYear> retirementYearlyData;
 
     /**
      * Create a new retirementScenario
@@ -19,22 +20,45 @@ public final class RetirementScenario {
      * @param initialSavings the initial retirement savings
      * @param annualContribution the annual contribution
      * @param appreciationRate the appreciation rate of savings
-     * Precondition currentAge > 0 and retirementAge > 0
+     * @param socialSecurity the expected social security income
+     * @param retirementSpending Annual spending for retirement
+     *
+     * Precondition currentAge and retirementAge must be between 1-100
      */
     public RetirementScenario(int currentAge, int retirementAge, int initialSavings,
-                              int annualContribution, double appreciationRate) {
-        if (currentAge < 1 || retirementAge < 1) {
-            throw new IllegalArgumentException("Cannot have ages below 1");
+                              int annualContribution, double appreciationRate,
+                              int socialSecurity, int retirementSpending) {
+        if (currentAge < 1 || retirementAge < 1
+            || currentAge > 100 || retirementAge > 100) {
+            throw new IllegalArgumentException("Ages must be 1-100");
         }
         this.savingsYearlyData = new ArrayList<SavingsYear>();
+        this.retirementYearlyData = new ArrayList<RetirementYear>();
 
-        if (currentAge < retirementAge) {
-            SavingsYear currentYear = new SavingsYear(currentAge, initialSavings, annualContribution, appreciationRate);
-            for (int index = currentAge; index < retirementAge; index++) {
-                this.savingsYearlyData.add(currentYear);
-                currentYear = currentYear.getNextYear();
+        int age = currentAge;
+        if (age < retirementAge) {
+            SavingsYear currentSavingsYear = new SavingsYear(age, initialSavings, annualContribution, appreciationRate);
+            while (age < retirementAge) {
+                this.savingsYearlyData.add(currentSavingsYear);
+                currentSavingsYear = currentSavingsYear.getNextYear();
+                age++;
             }
         }
+
+        RetirementYear currentRetirementYear;
+        if (this.savingsYearlyData.isEmpty()) {
+            currentRetirementYear = new RetirementYear(age, initialSavings, retirementSpending, socialSecurity, appreciationRate);
+        } else {
+            SavingsYear lastYear = this.savingsYearlyData.get(this.savingsYearlyData.size() - 1);
+            currentRetirementYear = new RetirementYear(lastYear.getAge() + 1,
+                    lastYear.getEndBalance(), retirementSpending, socialSecurity, appreciationRate);
+        }
+        while (age < 100) {
+            this.retirementYearlyData.add(currentRetirementYear);
+            currentRetirementYear = currentRetirementYear.getNextYear();
+            age++;
+        }
+
     }
 
     /**
@@ -43,6 +67,14 @@ public final class RetirementScenario {
      */
     public List<SavingsYear> getSavingsYears() {
         return new ArrayList<SavingsYear>(this.savingsYearlyData);
+    }
+
+    /**
+     * Get a list of the RetirementYears objects in this scenario
+     * @return A list of the RetirementYear objects for each retirement year in the scenario
+     */
+    public List<RetirementYear> getRetirementYears() {
+        return new ArrayList<RetirementYear>(this.retirementYearlyData);
     }
 
 }
