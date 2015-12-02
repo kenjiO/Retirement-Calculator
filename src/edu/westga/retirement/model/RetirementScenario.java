@@ -10,6 +10,10 @@ import java.util.List;
  *
  */
 public final class RetirementScenario {
+    /**
+     * The age the scenario goes up to
+     */
+    public static final int SCENARIO_STOP_AGE = 99;
     private final List<SavingsYear> savingsYearlyData;
     private final List<RetirementYear> retirementYearlyData;
 
@@ -53,7 +57,7 @@ public final class RetirementScenario {
             currentRetirementYear = new RetirementYear(lastYear.getAge() + 1,
                     lastYear.getEndBalance(), retirementSpending, socialSecurity, appreciationRate);
         }
-        while (age < 100) {
+        while (age <= SCENARIO_STOP_AGE) {
             this.retirementYearlyData.add(currentRetirementYear);
             currentRetirementYear = currentRetirementYear.getNextYear();
             age++;
@@ -75,6 +79,20 @@ public final class RetirementScenario {
      */
     public List<RetirementYear> getRetirementYears() {
         return new ArrayList<RetirementYear>(this.retirementYearlyData);
+    }
+
+    /**
+     * Gets the last age the retirement savings are still positive
+     * @return The last age the retirement savings are still postive or -1
+     * if there are still savings at the end of the scenario
+     */
+    public int getAgeRetirementLastsTo() {
+        for (RetirementYear year : this.retirementYearlyData) {
+            if (year.getEndBalance() < 0) {
+                return year.getAge();
+            }
+        }
+        return -1;
     }
 
 }
