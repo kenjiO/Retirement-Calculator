@@ -76,5 +76,19 @@ public class RetirementYearGetNextYearTest {
         RetirementYear testYear = previousYear.getNextYear();
         assertEquals(12000, testYear.getSocialSecurity());
     }
+    
+    /**
+     * Test getNextYear will transition from no social security to social security when reaching
+     * the social security start age
+     */
+    @Test
+    public void testGetNextYearStartsIncludingSsAtSsStartAge() {
+        int age = RetirementYear.SOCIAL_SECURITY_START_AGE - 1;
+        int socialSecurity = 12135;
+        RetirementYear lastYearBeforeSS = new RetirementYear(age, 200000, 40000, socialSecurity, .06);
+        assertEquals(0, lastYearBeforeSS.getSocialSecurity());
+        RetirementYear firstYearOfSS = lastYearBeforeSS.getNextYear();
+        assertEquals(socialSecurity, firstYearOfSS.getSocialSecurity());
+    }
 
 }

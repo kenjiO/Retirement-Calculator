@@ -10,10 +10,11 @@ public final class RetirementYear {
     private final int age;
     private final int beginBalance;
     private final int withdrawal;
-    private final int socialSecurity;
+    private final int socialSecurityIncome;
     private double appreciationRate;
     private final int appreciation;
     private final int endBalance;
+    private final int socialSecurityRate;
     /**
      * The age at which social security payments start
      */
@@ -33,10 +34,11 @@ public final class RetirementYear {
         }
         this.age = age;
         this.beginBalance = beginBalance;
+        this.socialSecurityRate = socialSecurity;
         if (age < SOCIAL_SECURITY_START_AGE) {
-            this.socialSecurity = 0;
+            this.socialSecurityIncome = 0;
         } else {
-            this.socialSecurity = socialSecurity;
+            this.socialSecurityIncome = socialSecurity;
         }
         this.withdrawal = withdrawal;
         this.appreciationRate = appreciationRate;
@@ -45,7 +47,7 @@ public final class RetirementYear {
         } else {
             this.appreciation = 0;
         }
-        this.endBalance = this.beginBalance - this.withdrawal + this.socialSecurity + this.appreciation;
+        this.endBalance = this.beginBalance - this.withdrawal + this.socialSecurityIncome + this.appreciation;
     }
 
     /**
@@ -69,7 +71,7 @@ public final class RetirementYear {
      * @return The social security income for the year
      */
     public int getSocialSecurity() {
-        return this.socialSecurity;
+        return this.socialSecurityIncome;
     }
 
 
@@ -102,7 +104,7 @@ public final class RetirementYear {
      * @return The next RetirementYear starting with this year's end balance
      */
     public RetirementYear getNextYear() {
-        return new RetirementYear(this.age + 1, this.endBalance, this.withdrawal, this.socialSecurity, this.appreciationRate);
+        return new RetirementYear(this.age + 1, this.endBalance, this.withdrawal, this.socialSecurityRate, this.appreciationRate);
     }
 
     /* (non-Javadoc)
@@ -119,7 +121,8 @@ public final class RetirementYear {
         result = prime * result + (int) (temp ^ (temp >>> 32));
         result = prime * result + this.beginBalance;
         result = prime * result + this.endBalance;
-        result = prime * result + this.socialSecurity;
+        result = prime * result + this.socialSecurityRate;
+        result = prime * result + this.socialSecurityIncome;
         result = prime * result + this.withdrawal;
         return result;
     }
@@ -154,7 +157,7 @@ public final class RetirementYear {
         if (this.endBalance != other.endBalance) {
             return false;
         }
-        if (this.socialSecurity != other.socialSecurity) {
+        if (this.socialSecurityIncome != other.socialSecurityIncome) {
             return false;
         }
         if (this.withdrawal != other.withdrawal) {
