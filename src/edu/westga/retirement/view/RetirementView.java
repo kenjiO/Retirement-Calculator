@@ -14,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
  * View class for the retirement application
@@ -102,6 +103,10 @@ public class RetirementView {
     @FXML
     public void saveResults(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new ExtensionFilter("CSV Files", "*.csv"),
+                new ExtensionFilter("All Files", "*.*"));
+        fileChooser.setInitialFileName("data.csv");
         File selectedFile = fileChooser.showSaveDialog(null);
         if (selectedFile != null) {
             this.viewModel.saveToFile(selectedFile);
