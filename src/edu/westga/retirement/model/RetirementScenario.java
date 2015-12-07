@@ -95,4 +95,31 @@ public final class RetirementScenario {
         return -1;
     }
 
+    @Override
+    public String toString() {
+        String result = "Year,Start Balance,Contribution,Withdrawal,Social Security,Appreciation,End Balance";
+        result += System.lineSeparator();
+        for (SavingsYear year : this.savingsYearlyData) {
+            result += year.getAge();
+            result += "," + year.getBeginBalance();
+            result += "," + year.getContribution();
+            result += "," + "0";
+            result += "," + "0";
+            result += "," + year.getAppreciation();
+            result += "," + year.getEndBalance();
+            result += System.lineSeparator();
+        }
+        for (RetirementYear year : this.retirementYearlyData) {
+            result += year.getAge();
+            result += "," + year.getBeginBalance();
+            result += "," + "0";
+            result += "," + year.getWithdrawal();
+            result += "," + year.getSocialSecurity();
+            result += "," + year.getAppreciation();
+            result += "," + year.getEndBalance();
+            result += System.lineSeparator();
+        }
+        return result;
+    }
+
 }
