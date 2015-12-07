@@ -27,14 +27,14 @@ public final class RetirementScenario {
      * @param socialSecurity the expected social security income
      * @param retirementSpending Annual spending for retirement
      *
-     * Precondition currentAge and retirementAge must be between 1-100
+     * Precondition currentAge and retirementAge must be between 1- {@value #SCENARIO_STOP_AGE}
      */
     public RetirementScenario(int currentAge, int retirementAge, int initialSavings,
                               int annualContribution, double appreciationRate,
                               int socialSecurity, int retirementSpending) {
         if (currentAge < 1 || retirementAge < 1
-            || currentAge > 100 || retirementAge > 100) {
-            throw new IllegalArgumentException("Ages must be 1-100");
+            || currentAge > SCENARIO_STOP_AGE || retirementAge > SCENARIO_STOP_AGE) {
+            throw new IllegalArgumentException("Ages must be 1-" + SCENARIO_STOP_AGE);
         }
         this.savingsYearlyData = new ArrayList<SavingsYear>();
         this.retirementYearlyData = new ArrayList<RetirementYear>();
