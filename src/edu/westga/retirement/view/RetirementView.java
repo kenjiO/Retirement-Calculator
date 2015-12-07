@@ -7,6 +7,7 @@ import edu.westga.retirement.model.SavingsYear;
 import edu.westga.retirement.viewmodel.RetirementViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TableColumn;
@@ -71,6 +72,7 @@ public class RetirementView {
     private TableColumn<RetirementYear, Integer> retireEndBalanceColumn;
     @FXML
     private Pane helpPane;
+    @FXML private Button saveResultsBtn;
 
     private RetirementViewModel viewModel = new RetirementViewModel();
 
@@ -79,6 +81,7 @@ public class RetirementView {
         this.resultMessage.textProperty().bind(this.viewModel.getResultMessageProperty());
         this.initializeSavingsTable();
         this.initializeRetirementTable();
+        this.saveResultsBtn.disableProperty().set(true);
     }
 
     /**
@@ -94,6 +97,7 @@ public class RetirementView {
         this.helpPane.setVisible(false);
         this.resultsPane.setVisible(true);
         this.resultMessage.setVisible(true);
+        this.saveResultsBtn.disableProperty().set(false);
     }
 
     /**
