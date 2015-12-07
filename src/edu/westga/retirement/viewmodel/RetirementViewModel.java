@@ -1,5 +1,8 @@
 package edu.westga.retirement.viewmodel;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 import edu.westga.retirement.model.RetirementScenario;
@@ -143,6 +146,27 @@ public class RetirementViewModel {
         List<RetirementYear> retirementYearsData = this.scenario.getRetirementYears();
         this.retirementYearsList.set(FXCollections.observableArrayList(retirementYearsData));
         this.setResultMessage();
+    }
+
+    /**
+     * Save the results of the current scenario to a file in csv form
+     * @param outFile The file to save the csv data to
+     * Precondition: outFile != null
+     */
+    public void saveToFile(File outFile) {
+        if (outFile == null) {
+            throw new IllegalArgumentException("outFile cannot be null");
+        }
+        FileWriter writer;
+        try {
+            writer = new FileWriter(outFile);
+            writer.write(this.scenario.toString());
+            writer.close();
+        } catch (IOException exceptio) {
+            this.resultMessage.set("Error writing data to the selected file");
+            return;
+        }
+        this.resultMessage.set("Scenario saved to " + outFile.getName());
     }
 
     private void setResultMessage() {
