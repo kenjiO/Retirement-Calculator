@@ -1,5 +1,7 @@
 package edu.westga.retirement.view;
 
+import java.io.File;
+
 import edu.westga.retirement.model.RetirementYear;
 import edu.westga.retirement.model.SavingsYear;
 import edu.westga.retirement.viewmodel.RetirementViewModel;
@@ -11,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 
 /**
  * View class for the retirement application
@@ -90,6 +93,19 @@ public class RetirementView {
         this.helpPane.setVisible(false);
         this.resultsPane.setVisible(true);
         this.resultMessage.setVisible(true);
+    }
+
+    /**
+     * Select a file and write the data from the current scenario to it
+     * @param event the button click event
+     */
+    @FXML
+    public void saveResults(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        File selectedFile = fileChooser.showSaveDialog(null);
+        if (selectedFile != null) {
+            this.viewModel.saveToFile(selectedFile);
+        }
     }
 
     private void setViewModelValues() {

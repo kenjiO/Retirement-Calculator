@@ -107,7 +107,7 @@
          </children>
       </Pane>
 
-      <Label fx:id="resultMessage" alignment="CENTER" layoutX="150.0" layoutY="250.0" prefWidth="500.0" style="-fx-background-color: #FFD;" visible="false">
+      <Label fx:id="resultMessage" alignment="CENTER" layoutX="90.0" layoutY="250.0" prefHeight="31.0" prefWidth="499.0" style="-fx-background-color: #FFD;" visible="false">
          <font>
             <Font size="18.0" />
          </font>
@@ -118,6 +118,7 @@
             <DropShadow height="7.0" radius="3.0" width="7.0" />
          </effect>
       </Label>
+      <Button fx:id="saveResultsBtn" layoutX="612.0" layoutY="253.0" mnemonicParsing="false" onAction="#saveResults" text="Save Results To File" />
 
       <Pane fx:id="resultsPane" layoutY="300.0" prefHeight="420.0" prefWidth="800.0" visible="false">
          <children>
