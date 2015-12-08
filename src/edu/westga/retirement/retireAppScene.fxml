@@ -72,7 +72,7 @@
             <children>
                   <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="180.0" text="Current Retirement Savings" />
                   <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="180.0" text="Annual Contribution" GridPane.rowIndex="1" />
-                  <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="180.0" text="\% Return Rate" GridPane.rowIndex="2" />
+                  <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="180.0" text="\% Return Rate on Savings" GridPane.rowIndex="2" />
 
                   <Spinner fx:id="savings" initialValue="100000" max="10000000" min="0" GridPane.columnIndex="1">
                     <valueFactory>
@@ -93,10 +93,13 @@
                   </Spinner>
 
 
-                  <Button alignment="CENTER" layoutY="-23.0" mnemonicParsing="false" onAction="#runScenario" prefHeight="26.0" prefWidth="98.0" text="Calculate" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <Button alignment="CENTER" defaultButton="true" layoutY="-23.0" mnemonicParsing="false" onAction="#runScenario" prefHeight="26.0" prefWidth="98.0" text="Calculate" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
                   </Button>
 
             </children>
@@ -156,20 +159,21 @@
       </Pane>
 
 
-      <Label fx:id="resultMessage" alignment="CENTER" contentDisplay="CENTER" layoutX="19.0" layoutY="250.0" prefHeight="31.0" prefWidth="570.0" style="-fx-background-color: #FFD;" visible="false">
+      <Label fx:id="resultMessage" alignment="CENTER" contentDisplay="CENTER" layoutX="44.0" layoutY="244.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="520.0" style="-fx-background-color: #FFFFF7;" textFill="#2c2c2c" visible="false">
          <font>
-            <Font size="18.0" />
+            <Font size="17.0" />
          </font>
          <padding>
-            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
          </padding>
          <effect>
             <DropShadow height="7.0" radius="3.0" width="7.0" />
          </effect>
       </Label>
-      <Button fx:id="saveResultsBtn" layoutX="612.0" layoutY="253.0" mnemonicParsing="false" onAction="#saveResults" text="Save Current Results To File" />
+      <Button fx:id="saveResultsBtn" layoutX="615.0" layoutY="248.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveResults" prefHeight="25.0" prefWidth="100.0" text="Save to To File" />
+      <Button fx:id="showHelpBtn" layoutX="725.0" layoutY="248.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#showHelp" prefHeight="25.0" prefWidth="60.0" text="Help" />
 
-      <Pane fx:id="resultsPane" layoutY="300.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="850.0" visible="false">
+      <Pane fx:id="resultsPane" layoutY="278.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="850.0">
          <children>
 
             <Label alignment="BOTTOM_CENTER" prefHeight="20.0" prefWidth="800.0" text="Savings Years" textFill="#7a867d">
@@ -178,7 +182,7 @@
                </font>
             </Label>
 
-            <TableView fx:id="savingsYearsTable" layoutX="75.0" layoutY="27.0" prefHeight="170.0" prefWidth="700.0">
+            <TableView fx:id="savingsYearsTable" layoutX="75.0" layoutY="27.0" prefHeight="186.0" prefWidth="700.0">
               <columns>
                 <TableColumn fx:id="ageColumn" prefWidth="60.0" text="Age" />
                 <TableColumn fx:id="beginBalanceColumn" prefWidth="140.0" text="Start Balance" />
@@ -188,13 +192,13 @@
               </columns>
             </TableView>
 
-            <Label alignment="BOTTOM_CENTER" layoutY="212.0" prefHeight="20.0" prefWidth="800.0" text="Retirement Years" textFill="#7a867d">
+            <Label alignment="BOTTOM_CENTER" layoutY="224.0" prefHeight="20.0" prefWidth="800.0" text="Retirement Years" textFill="#7a867d">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
 
-            <TableView fx:id="retirementYearsTable" layoutX="75.0" layoutY="240.0" prefHeight="170.0" prefWidth="700.0">
+            <TableView fx:id="retirementYearsTable" layoutX="75.0" layoutY="250.0" prefHeight="186.0" prefWidth="700.0">
               <columns>
                 <TableColumn fx:id="retireAgeColumn" prefWidth="60.0" text="Age" />
                 <TableColumn fx:id="retireBeginBalanceColumn" prefWidth="140.0" text="Start Balance" />
@@ -207,13 +211,21 @@
          </children>
       </Pane>
 
-      <Pane fx:id="helpPane" layoutY="289.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="850.0">
+      <Pane fx:id="helpPane" layoutY="300.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="850.0" visible="false">
          <children>
-            <TextArea editable="false" layoutX="105.0" layoutY="14.0" prefHeight="360.0" prefWidth="640.0" text="Set the parameters in the above form and then click Calculate.  A table will estimate what your retirement savings will be like from your current age to 99 years old.&#10;&#10;Change the parameters and click Calculuate again to see the result of a new scenario.&#10;&#10;Use the Saved Scenarios box to save and recall scenarios for easy comparison.&#10;&#10;Results can be saved to a comma seperated value file that can be easily viewd in programs such as Excel." wrapText="true">
+            <TextArea editable="false" layoutX="105.0" layoutY="14.0" prefHeight="370.0" prefWidth="640.0" style="-fx-control-inner-background: #FFD; -fx-control-background: #FFD;" text=" Set the parameters in the above form and then click Calculate.  A table&#10; will estimate what your retirement savings will be like from your current&#10; age to 99 years old.&#10;&#10; Change the parameters and click Calculuate again to see the result of&#10; a new scenario.&#10;&#10; Use the Saved Scenarios box to save and recall scenarios for easy&#10; comparison.&#10;&#10; Results can be saved to a comma seperated value file that can be easily &#10; viewed in programs such as Excel." wrapText="true">
                <font>
                   <Font size="18.0" />
                </font>
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" color="#00000098" height="20.0" radius="9.5" width="20.0" />
+               </effect>
             </TextArea>
+            <Button fx:id="helpCloseBtn" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" layoutX="662.0" layoutY="336.0" mnemonicParsing="false" onAction="#hideHelp" text="Close" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
 

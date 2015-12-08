@@ -96,6 +96,7 @@ public class RetirementView {
         this.initializeSavingsTable();
         this.initializeRetirementTable();
         this.saveResultsBtn.disableProperty().set(true);
+        this.showHelp();
     }
 
     /**
@@ -187,6 +188,20 @@ public class RetirementView {
     public void preset3Recall() {
         this.viewModel.recallPreset(3);
         this.setViewFormFieldsFromViewModelFields();
+    }
+
+    /**
+     * Show the help dialogue
+     */
+    public void showHelp() {
+        this.helpPane.setVisible(true);
+    }
+
+    /**
+     * Hide the help dialogue
+     */
+    public void hideHelp() {
+        this.helpPane.setVisible(false);
     }
 
     private void setViewModelValues() {
