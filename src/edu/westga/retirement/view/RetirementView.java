@@ -72,7 +72,21 @@ public class RetirementView {
     private TableColumn<RetirementYear, Integer> retireEndBalanceColumn;
     @FXML
     private Pane helpPane;
-    @FXML private Button saveResultsBtn;
+    @FXML
+    private Button saveResultsBtn;
+    @FXML
+    private Button preset1SetBtn;
+    @FXML
+    private Button preset1RecallBtn;
+    @FXML
+    private Button preset2SetBtn;
+    @FXML
+    private Button preset2RecallBtn;
+    @FXML
+    private Button preset3SetBtn;
+    @FXML
+    private Button preset3RecallBtn;
+
 
     private RetirementViewModel viewModel = new RetirementViewModel();
 
@@ -117,6 +131,64 @@ public class RetirementView {
         }
     }
 
+    /**
+     * Save the current form field values to preset1
+     */
+    @FXML
+    public void preset1Set() {
+        this.setViewModelValues();
+        this.viewModel.setPreset(1);
+        this.preset1RecallBtn.disableProperty().set(false);
+    }
+
+    /**
+     * Save the current form field values to preset2
+     */
+    @FXML
+    public void preset2Set() {
+        this.setViewModelValues();
+        this.viewModel.setPreset(2);
+        this.preset2RecallBtn.disableProperty().set(false);
+    }
+    /**
+     * Save the current form field values to preset3
+     */
+    @FXML
+    public void preset3Set() {
+        this.setViewModelValues();
+        this.viewModel.setPreset(3);
+        this.preset3RecallBtn.disableProperty().set(false);
+    }
+
+
+
+    /**
+     * Recall the preset 1 form values
+     */
+    @FXML
+    public void preset1Recall() {
+        this.viewModel.recallPreset(1);
+        this.setViewFormFieldsFromViewModelFields();
+    }
+
+    /**
+     * Recall the preset 2 form values
+     */
+    @FXML
+    public void preset2Recall() {
+        this.viewModel.recallPreset(2);
+        this.setViewFormFieldsFromViewModelFields();
+    }
+
+    /**
+     * Recall the preset 3 form values
+     */
+    @FXML
+    public void preset3Recall() {
+        this.viewModel.recallPreset(3);
+        this.setViewFormFieldsFromViewModelFields();
+    }
+
     private void setViewModelValues() {
         this.viewModel.currentAgeProperty().setValue(this.age.getValue());
         this.viewModel.retireAgeProperty().setValue(this.retireAge.getValue());
@@ -125,6 +197,17 @@ public class RetirementView {
         this.viewModel.returnRateProperty().setValue(this.returnRate.getValue() / 100);
         this.viewModel.socialSecurityProperty().setValue(this.socialSecurity.getValue());
         this.viewModel.retirementSpendingProperty().setValue(this.retirementSpending.getValue());
+    }
+
+
+    private void setViewFormFieldsFromViewModelFields() {
+        this.age.getValueFactory().setValue(this.viewModel.currentAgeProperty().getValue());
+        this.retireAge.getValueFactory().setValue(this.viewModel.retireAgeProperty().getValue());
+        this.savings.getValueFactory().setValue(this.viewModel.startBalanceProperty().getValue());
+        this.contribution.getValueFactory().setValue(this.viewModel.annualContributionProperty().getValue());
+        this.returnRate.getValueFactory().setValue(this.viewModel.returnRateProperty().getValue() * 100);
+        this.socialSecurity.getValueFactory().setValue(this.viewModel.socialSecurityProperty().getValue());
+        this.retirementSpending.getValueFactory().setValue(this.viewModel.retirementSpendingProperty().getValue());
     }
 
     private void initializeSavingsTable() {

@@ -202,6 +202,7 @@ public class RetirementViewModel {
         preset.put("socialSecurity", this.socialSecurity.getValue());
         preset.put("retirementSpending", this.retirementSpending.getValue());
         this.presets.set(presetNumber - 1, preset);
+        this.resultMessage.set("Current scenario saved");
     }
 
     /**
@@ -227,6 +228,7 @@ public class RetirementViewModel {
         this.socialSecurity.setValue(preset.get("socialSecurity"));
         this.retirementSpending.setValue(preset.get("retirementSpending"));
         this.runScenario();
+        this.resultMessage.set("Saved Scenario " + presetNumber + " recalled");
         return true;
     }
 

@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="730.0" maxWidth="800.0" minHeight="730.0" minWidth="800.0" prefHeight="730.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.retirement.view.RetirementView">
+<AnchorPane maxHeight="730.0" maxWidth="850.0" minHeight="730.0" minWidth="850.0" prefHeight="730.0" prefWidth="850.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.retirement.view.RetirementView">
    <children>
-      <Label alignment="CENTER" layoutY="15.0" prefHeight="36.0" prefWidth="800.0" text="Retirement Savings Calculator" textFill="#7a867d">
+      <Label alignment="CENTER" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="850.0" text="Retirement Savings Calculator" textFill="#7a867d">
          <font>
             <Font size="25.0" />
          </font>
@@ -18,14 +18,14 @@
             <DropShadow blurType="ONE_PASS_BOX" height="2.79" radius="1.6524999999999999" width="5.82" />
          </effect>
       </Label>
-      <Pane layoutX="68.0" layoutY="65.0" prefHeight="170.0" prefWidth="664.0" style="-fx-border-color: #ccc; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 8;">
+      <Pane layoutX="16.0" layoutY="65.0" prefHeight="170.0" prefWidth="570.0" style="-fx-border-color: #ccc; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 8;">
          <children>
 
 
-          <GridPane layoutX="40.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="155.0" prefWidth="250.0" vgap="7.0">
+          <GridPane layoutX="5.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="155.0" prefWidth="250.0" vgap="7.0">
              <columnConstraints>
                <ColumnConstraints maxWidth="160.0" minWidth="160.0" prefWidth="160.0" />
-               <ColumnConstraints maxWidth="80.0" minWidth="80.0" prefWidth="80.0" />
+               <ColumnConstraints maxWidth="85.0" minWidth="85.0" prefWidth="85.0" />
              </columnConstraints>
              <rowConstraints>
                <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" />
@@ -58,10 +58,10 @@
           </GridPane>
 
 
-          <GridPane layoutX="320.0" layoutY="11.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="155.0" prefWidth="305.0" vgap="7.0">
+          <GridPane layoutX="255.0" layoutY="11.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="155.0" prefWidth="305.0" vgap="7.0">
             <columnConstraints>
                 <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="190.0" />
-                <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="90.0" />
+                <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="95.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" />
@@ -107,7 +107,56 @@
          </children>
       </Pane>
 
-      <Label fx:id="resultMessage" alignment="CENTER" layoutX="90.0" layoutY="250.0" prefHeight="31.0" prefWidth="499.0" style="-fx-background-color: #FFD;" visible="false">
+      <Pane layoutX="598.0" layoutY="65.0" prefHeight="170.0" prefWidth="196.0" style="-fx-border-color: #ccc; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 8;">
+         <children>
+            <Label alignment="CENTER" layoutY="12.0" prefHeight="31.0" prefWidth="192.0" text="Saved Scenarios">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <GridPane layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="116.0" prefWidth="192.0" vgap="10.0">
+                <columnConstraints>
+                    <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" />
+                    <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="75.0" />
+                    <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="75.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" />
+                    <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" />
+                    <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" />
+                </rowConstraints>
+                <padding>
+                      <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                </padding>
+               <children>
+                  <Label alignment="CENTER" prefHeight="15.0" prefWidth="32.0" text="1">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="preset1SetBtn" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#preset1Set" prefWidth="65.0" text="Save" GridPane.columnIndex="1" />
+                  <Button fx:id="preset1RecallBtn" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#preset1Recall" prefWidth="65.0" text="Recall" GridPane.columnIndex="2" />
+                  <Label alignment="CENTER" prefHeight="15.0" prefWidth="32.0" text="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="preset2SetBtn" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#preset2Set" prefWidth="65.0" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button fx:id="preset2RecallBtn" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#preset2Recall" prefWidth="65.0" text="Recall" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Label alignment="CENTER" prefHeight="15.0" prefWidth="32.0" text="3" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="preset3SetBtn" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#preset3Set" prefWidth="65.0" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button fx:id="preset3RecallBtn" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#preset3Recall" prefWidth="65.0" text="Recall" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+         </children>
+      </Pane>
+
+
+      <Label fx:id="resultMessage" alignment="CENTER" contentDisplay="CENTER" layoutX="19.0" layoutY="250.0" prefHeight="31.0" prefWidth="570.0" style="-fx-background-color: #FFD;" visible="false">
          <font>
             <Font size="18.0" />
          </font>
@@ -118,9 +167,9 @@
             <DropShadow height="7.0" radius="3.0" width="7.0" />
          </effect>
       </Label>
-      <Button fx:id="saveResultsBtn" layoutX="612.0" layoutY="253.0" mnemonicParsing="false" onAction="#saveResults" text="Save Results To File" />
+      <Button fx:id="saveResultsBtn" layoutX="612.0" layoutY="253.0" mnemonicParsing="false" onAction="#saveResults" text="Save Current Results To File" />
 
-      <Pane fx:id="resultsPane" layoutY="300.0" prefHeight="420.0" prefWidth="800.0" visible="false">
+      <Pane fx:id="resultsPane" layoutY="300.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="850.0" visible="false">
          <children>
 
             <Label alignment="BOTTOM_CENTER" prefHeight="20.0" prefWidth="800.0" text="Savings Years" textFill="#7a867d">
@@ -129,7 +178,7 @@
                </font>
             </Label>
 
-            <TableView fx:id="savingsYearsTable" layoutX="50.0" layoutY="27.0" prefHeight="170.0" prefWidth="700.0">
+            <TableView fx:id="savingsYearsTable" layoutX="75.0" layoutY="27.0" prefHeight="170.0" prefWidth="700.0">
               <columns>
                 <TableColumn fx:id="ageColumn" prefWidth="60.0" text="Age" />
                 <TableColumn fx:id="beginBalanceColumn" prefWidth="140.0" text="Start Balance" />
@@ -145,7 +194,7 @@
                </font>
             </Label>
 
-            <TableView fx:id="retirementYearsTable" layoutX="50.0" layoutY="240.0" prefHeight="170.0" prefWidth="700.0">
+            <TableView fx:id="retirementYearsTable" layoutX="75.0" layoutY="240.0" prefHeight="170.0" prefWidth="700.0">
               <columns>
                 <TableColumn fx:id="retireAgeColumn" prefWidth="60.0" text="Age" />
                 <TableColumn fx:id="retireBeginBalanceColumn" prefWidth="140.0" text="Start Balance" />
@@ -158,9 +207,9 @@
          </children>
       </Pane>
 
-      <Pane fx:id="helpPane" layoutY="264.0" prefHeight="435.0" prefWidth="800.0">
+      <Pane fx:id="helpPane" layoutY="289.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="850.0">
          <children>
-            <TextArea editable="false" layoutX="78.0" layoutY="24.0" prefHeight="320.0" prefWidth="640.0" text="Set the parameters in the above form and then click Calculate.  A table will estimate what your retirement savings will be like from your current age to 99 years old.&#10;&#10;Change the parameters and click Calculuate again to see the result of a new scenario.&#10;&#10;Experiment and find out what you need to do to retire at the age you want with the retirement income you want." wrapText="true">
+            <TextArea editable="false" layoutX="105.0" layoutY="14.0" prefHeight="360.0" prefWidth="640.0" text="Set the parameters in the above form and then click Calculate.  A table will estimate what your retirement savings will be like from your current age to 99 years old.&#10;&#10;Change the parameters and click Calculuate again to see the result of a new scenario.&#10;&#10;Use the Saved Scenarios box to save and recall scenarios for easy comparison.&#10;&#10;Results can be saved to a comma seperated value file that can be easily viewd in programs such as Excel." wrapText="true">
                <font>
                   <Font size="18.0" />
                </font>
