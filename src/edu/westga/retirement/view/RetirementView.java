@@ -113,6 +113,8 @@ public class RetirementView {
         this.resultsPane.setVisible(true);
         this.resultMessage.setVisible(true);
         this.saveResultsBtn.disableProperty().set(false);
+        this.savingsYearsTable.scrollTo(this.savingsYearsTable.getItems().size());
+        this.retirementYearsTable.scrollTo(this.retirementYearsTable.getItems().size());
     }
 
     /**
