@@ -3,7 +3,10 @@ package edu.westga.retirement.viewmodel;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.westga.retirement.model.RetirementScenario;
 import edu.westga.retirement.model.RetirementYear;
@@ -26,6 +29,10 @@ import javafx.collections.FXCollections;
  */
 public class RetirementViewModel {
 
+    /**
+     * Max number of presets that can be saved.
+     */
+    public static final int MAX_NUMBER_PRESETS = 10;
     private final IntegerProperty currentAge = new SimpleIntegerProperty();
     private final IntegerProperty retireAge = new SimpleIntegerProperty();
     private final IntegerProperty initialBalance = new SimpleIntegerProperty();
@@ -38,6 +45,7 @@ public class RetirementViewModel {
     private final ReadOnlyListWrapper<RetirementYear> retirementYearsList = new ReadOnlyListWrapper<RetirementYear>();
     private final ReadOnlyStringWrapper resultMessage = new ReadOnlyStringWrapper();
     private RetirementScenario scenario;
+    private List<Map<String, Number>> presets;
 
     /**
      * Create a new View Model
@@ -45,6 +53,12 @@ public class RetirementViewModel {
     public RetirementViewModel() {
         this.savingsYearsList.set(FXCollections.observableArrayList());
         this.retirementYearsList.set(FXCollections.observableArrayList());
+
+        // Create list of presets and initializes with null values for each preset
+        this.presets = new ArrayList<Map<String, Number>>();
+        for (int index = 0; index < MAX_NUMBER_PRESETS; index++) {
+            this.presets.add(null);
+        }
     }
 
     /**
@@ -167,6 +181,53 @@ public class RetirementViewModel {
             return;
         }
         this.resultMessage.set("Scenario saved to " + outFile.getName());
+    }
+
+    /**
+     * Save the current form fields to a preset that can be recalled later
+     * @param presetNumber The preset number to save to
+     * Precondition: preset number is between 1 and {@value #MAX_NUMBER_PRESETS}
+     */
+    public void setPreset(int presetNumber) {
+        if (presetNumber > RetirementViewModel.MAX_NUMBER_PRESETS
+                || presetNumber < 1) {
+            throw new IllegalArgumentException("Preset number must be between 1 and " + RetirementViewModel.MAX_NUMBER_PRESETS);
+        }
+        Map<String, Number> preset = new HashMap<String, Number>();
+        preset.put("currentAge", this.currentAge.getValue());
+        preset.put("retireAge", this.retireAge.getValue());
+        preset.put("initialBalance", this.initialBalance.getValue());
+        preset.put("annualContribution", this.annualContribution.getValue());
+        preset.put("appreciationRate", this.appreciationRate.getValue());
+        preset.put("socialSecurity", this.socialSecurity.getValue());
+        preset.put("retirementSpending", this.retirementSpending.getValue());
+        this.presets.set(presetNumber - 1, preset);
+    }
+
+    /**
+     * Set the scenario parameters to those of a saved preset
+     * @param presetNumber The preset number to get the parameters from.
+     * @return false when the preset at the given number has been set, otherwise true
+     * Precondition: preset number is between 1 and {@value #MAX_NUMBER_PRESETS}
+     */
+    public boolean recallPreset(int presetNumber) {
+        if (presetNumber > RetirementViewModel.MAX_NUMBER_PRESETS
+                || presetNumber < 1) {
+            throw new IllegalArgumentException("Preset number must be between 1 and " + RetirementViewModel.MAX_NUMBER_PRESETS);
+        }
+        Map<String, Number> preset = this.presets.get(presetNumber - 1);
+        if (preset == null) {
+            return false;
+        }
+        this.currentAge.setValue(preset.get("currentAge"));
+        this.retireAge.setValue(preset.get("retireAge"));
+        this.initialBalance.setValue(preset.get("initialBalance"));
+        this.annualContribution.setValue(preset.get("annualContribution"));
+        this.appreciationRate.setValue(preset.get("appreciationRate"));
+        this.socialSecurity.setValue(preset.get("socialSecurity"));
+        this.retirementSpending.setValue(preset.get("retirementSpending"));
+        this.runScenario();
+        return true;
     }
 
     private void setResultMessage() {
